@@ -10,6 +10,8 @@ namespace BaiTap2
     {
         public int soDinh { get; set; }
         public int[,] maTran { get; set; }
+        public int start { get; set; }
+        public int goal { get; set; }
         public async Task DocFileAsync(string duongDan)
         {
             if (File.Exists(duongDan))
@@ -19,10 +21,12 @@ namespace BaiTap2
                     var content = await stream.ReadToEndAsync();
                     var lines = content.Split("\n");
                     soDinh = int.Parse(lines[0]);
+                    start = int.Parse(lines[1].Split(" ")[0]);
+                    goal = int.Parse(lines[1].Split(" ")[1]);
                     maTran = new int[soDinh, soDinh];
                     for (var i = 0; i < soDinh; ++i)
                     {
-                        var values = lines[i + 1].Split(" ");
+                        var values = lines[i + 2].Split(" ");
                         for (var j = 0; j < values.Length; ++j)
                         {
                             if (values != null)
@@ -34,30 +38,6 @@ namespace BaiTap2
             else
             {
                 Console.WriteLine("File not found!!!");
-            }
-        }
-        public bool KiemTraMaTranDoiXung()
-        {
-            var result = true;
-            int i, j;
-            for (i = 0; i < soDinh && result; i++)
-            {
-                for (j = i + 1; (j < soDinh) && (maTran[i, j] == maTran[j, i]); j++) ;
-                if (j < soDinh)
-                    result = false;
-            }
-            return result;
-        }
-
-        public void InMaTran()
-        {
-            for (var i = 0; i < soDinh; i++)
-            {
-                for (var j = 0; j < soDinh; j++)
-                {
-                    Console.Write("{0} ", maTran[i, j]);
-                }
-                Console.Write("\n");
             }
         }
     }

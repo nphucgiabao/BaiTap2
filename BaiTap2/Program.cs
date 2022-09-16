@@ -8,7 +8,8 @@ namespace BaiTap2
         static async Task Main(string[] args)
         {
             var doThi = new DoThi();
-            await doThi.DocFileAsync("../../../input.txt");        
+            await doThi.DocFileAsync("../../../input.txt");
+            Console.WriteLine("{0} {1}", doThi.start, doThi.goal);
             Console.ReadKey();
         }
     }
