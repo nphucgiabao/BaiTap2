@@ -40,5 +40,16 @@ namespace BaiTap2
                 Console.WriteLine("File not found!!!");
             }
         }
+
+        public List<int> TimDinhKe(int dinh)
+        {
+            var result = new List<int>();
+            for (var i = 0; i < soDinh; i++)
+            {
+                if (maTran[i, dinh] > 0)
+                    result.Add(i);
+            }
+            return result;
+        }
     }
 }
