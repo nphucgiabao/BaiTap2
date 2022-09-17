@@ -11,12 +11,12 @@ namespace BaiTap2
         {
             var doThi = new DoThi();
             await doThi.DocFileAsync("../../../input.txt");
-            Caub(doThi);
-            CauC(doThi);
+            Cau_B(doThi);
+            Cau_C(doThi);
             Console.ReadKey();
         }
 
-        static void Caub(DoThi doThi)
+        static void Cau_B(DoThi doThi)
         {
             Queue<int> queue = new Queue<int>();
             bool[] visited = new bool[doThi.soDinh];
@@ -70,7 +70,7 @@ namespace BaiTap2
             
         }
 
-        static void CauC(DoThi doThi)
+        static void Cau_C(DoThi doThi)
         {
             if (doThi.KiemTraMaTranDoiXung())
             {
