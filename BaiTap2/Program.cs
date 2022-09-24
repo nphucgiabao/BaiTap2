@@ -11,6 +11,7 @@ namespace BaiTap2
         {
             var doThi = new DoThi();
             await doThi.DocFileAsync("../../../input.txt");
+            Cau_A(doThi);
             Cau_B(doThi);
             Cau_C(doThi);
             Console.ReadKey();
@@ -20,7 +21,7 @@ namespace BaiTap2
         {
             Queue<int> queue = new Queue<int>();
             bool[] visited = new bool[doThi.soDinh];
-            int[] parent = new int[doThi.soDinh];          
+            int[] parent = new int[doThi.soDinh];
             for (var i = 0; i < parent.Length; i++)
             {
                 parent[i] = -1;
@@ -63,11 +64,11 @@ namespace BaiTap2
                         }
                         Console.WriteLine(doThi.start);
                         return;
-                    }                    
+                    }
                 }
                 Console.WriteLine("Khong co duong di");
             }
-            
+
         }
 
         static void Cau_C(DoThi doThi)
@@ -121,5 +122,67 @@ namespace BaiTap2
                 }
             }
         }
+
+        static void Cau_A(DoThi doThi)
+        {
+            Stack<int> stack = new Stack<int>();
+            bool[] visited = new bool[doThi.soDinh];
+             int[] parent = new int[doThi.soDinh];
+            for (var i = 0; i < parent.Length; i++)
+            {
+                parent[i] = -1;
+            }
+            
+            string result = string.Empty;
+            if (!visited[doThi.start])
+            {
+                visited[doThi.start] = true;
+                stack.Push(doThi.start);
+                while (stack.Count > 0)
+                {
+                    var vertex = stack.Pop();
+                    result += $"{vertex} ";
+                    if (vertex != doThi.goal)
+                    {
+                        var cacDinhKe = doThi.TimDinhKe(vertex);
+                        if (cacDinhKe.Count > 0)
+                        {
+                            cacDinhKe.ForEach(x =>
+                            {
+                                
+                                if (!visited[x])
+                                {
+                                    visited[x] = true;
+                                    parent[x] = vertex;
+                                    stack.Push(x);
+                                }
+                            });
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Danh sach cac dinh da duyet theo thu tu:");
+                        Console.WriteLine(result);
+                        Console.WriteLine("Duong di in kieu nguoc:");
+                        int cur = doThi.goal;
+                        while (cur != doThi.start)
+                        {
+                            Console.Write("{0} <- ", cur);
+                            cur = parent[cur];
+                        }
+                        Console.WriteLine(doThi.start);
+                        return;
+                    }
+                }
+                Console.WriteLine("Khong co duong di");
+            }
+
+        }
+       
+
+        
+
+        
+
     }
 }
